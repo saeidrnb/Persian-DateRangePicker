@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="UTF-8" />
+    <title>SAMTIKE DATEPICKER</title>
+    <link href="assets/bootstrap/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="assets/css/daterangepicker.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="assets/css/datepicker-theme.css" rel="stylesheet" type="text/css" media="all"  />
+    <link href="assets/css/icomoon.css" rel="stylesheet" />
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body style="direction:rtl">
+    <div class="container">
+        <h2>انتخاب تاریخ در بازه زمانی</h2>
+        <br />
+        <div class="well">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="control-label">تاریخ ورود</label>
+                    <input type="text" class="form-control" id="dateRangePicker" />
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label">تاریخ خروج</label>
+                    <input type="text" class="form-control" id="dateRangePickerEnd" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <script src="assets/js/moment.min.js" type="text/javascript"></script>
+    <script src="assets/js/moment-jalaali.js"></script>
+    <script src="assets/js/daterangepicker-fa.js"></script>
+    <script>
+        $(document).ready(function () {
+            var night;
+            var isRtl = true;
+            var dateFormat = isRtl ? 'jYYYY/jMM/jDD' : 'YYYY/MM/DD';
+            var dateFrom = false ? moment("") : undefined;
+            var dateTo = false ? moment("") : undefined;
+            var $dateRanger = $("#dateRangePicker");
+
+            $dateRanger.daterangepicker({
+                clearLabel: 'Clear',
+                autoUpdateInput: !!(dateFrom && dateTo),
+                minDate: moment(),
+                autoApply: true,
+                opens: isRtl ? 'left' : 'right',
+                locale: {
+                    separator: ' - ',
+                    format: dateFormat
+                },
+                startDate: dateFrom,
+                endDate: dateTo,
+                jalaali: isRtl,
+                showDropdowns: true
+            }).on('apply.daterangepicker', function (ev, picker) {
+                night = picker.endDate.diff(picker.startDate, 'days');
+                if (night > 0) {
+                    $(this).val(picker.startDate.format(dateFormat));
+                    $('#dateRangePickerEnd').val(picker.endDate.format(dateFormat));
+                } else {
+                    $(this).val('')
+                }
+            });
+        });
+    </script>
+</body>
+</html>
