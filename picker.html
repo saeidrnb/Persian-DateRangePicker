@@ -7,7 +7,6 @@
 
     <link href="assets/css/daterangepicker.css" rel="stylesheet" type="text/css" media="all" />
     <link href="assets/css/datepicker-theme.css" rel="stylesheet" type="text/css" media="all"  />
-    <link href="assets/css/icomoon.css" rel="stylesheet" />
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -31,6 +30,22 @@
             </div>
 
         </div>
+
+        <h3>انتخاب تاریخ بصورت یکتا</h3>
+        <br />
+        <div class="well">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="control-label">تاریخ تولد شمسی</label>
+                    <input type="text" class="form-control jalali-datepicker" />
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label">تاریخ تولد میلادی</label>
+                    <input type="text" class="form-control ga-datepicker" />
+                </div>
+            </div>
+
+        </div>
     </div>
 
 
@@ -39,7 +54,7 @@
 
     <script src="assets/js/moment.min.js" type="text/javascript"></script>
     <script src="assets/js/moment-jalaali.js"></script>
-    <script src="assets/js/daterangepicker-fa.js"></script>
+    <script src="assets/js/daterangepicker-fa-ex.js"></script>
     <script>
         $(document).ready(function () {
             var night;
@@ -72,6 +87,40 @@
                     $(this).val('')
                 }
             });
+
+            
+            $('.ga-datepicker').daterangepicker({
+                clearLabel: 'Clear',
+                // autoUpdateInput: !!(dateFrom && dateTo),
+                //minDate: moment(),
+                autoApply: true,
+                opens: 'right',
+                singleDatePicker: true,
+                showDropdowns: true,
+                language: 'en'
+            }).on('apply.daterangepicker', function () {
+                $('.tooltip').hide();
+            });
+
+            $('.jalali-datepicker').daterangepicker({
+                clearLabel: 'Clear',
+                autoApply: true,
+                opens: 'left',
+                singleDatePicker: true,
+                showDropdowns: true,
+                jalaali: true,
+                language: 'fa'
+            }).on('apply.daterangepicker', function () {
+                $('.tooltip').hide();
+            });
+
+            $(document).on('mouseover', '.daterangepicker .calendar td', function () {
+                var gagDate = $(this).attr('data-original-title');
+                //console.log(gagDate);
+                $('.gag-date-hover').text('');
+                $('.gag-date-hover').text(gagDate);               
+            });
+
         });
     </script>
 </body>
