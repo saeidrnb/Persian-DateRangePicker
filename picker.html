@@ -27,6 +27,14 @@
                     <label class="control-label">تاریخ خروج</label>
                     <input type="text" class="form-control" id="dateRangePickerEnd" />
                 </div>
+                <div class="col-sm-3">
+                    <label class="control-label">تاریخ تبدیل شده</label>
+                    <span class="date-hover" style="display:block"></span>
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label">تاریخ انتخاب شده</label>
+                    <span class="date-select" style="display:block"></span>
+                </div>
             </div>
 
         </div>
@@ -100,6 +108,7 @@
                 language: 'en'
             }).on('apply.daterangepicker', function () {
                 $('.tooltip').hide();
+                $('.date-select').text($(this).val());
             });
 
             $('.jalali-datepicker').daterangepicker({
@@ -112,13 +121,15 @@
                 language: 'fa'
             }).on('apply.daterangepicker', function () {
                 $('.tooltip').hide();
+                $('.date-select').text($(this).val());
             });
 
             $(document).on('mouseover', '.daterangepicker .calendar td', function () {
                 var gagDate = $(this).attr('data-original-title');
-                //console.log(gagDate);
-                $('.gag-date-hover').text('');
-                $('.gag-date-hover').text(gagDate);               
+                $('.date-hover').text('');
+                $('.date-hover').text(gagDate);
+
+                $('[data-toggle="tooltip"]').tooltip()
             });
 
         });
